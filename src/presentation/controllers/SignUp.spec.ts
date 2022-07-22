@@ -10,7 +10,7 @@ describe('SignUp controller', () => {
       body: {
         email: 'any_email@mail.com',
         password: '1234',
-        confirmationPassword: '1234'
+        passwordConfirmation: '1234'
       }
     }
 
@@ -27,7 +27,7 @@ describe('SignUp controller', () => {
       body: {
         name: 'any_name',
         password: '1234',
-        confirmationPassword: '1234'
+        passwordConfirmation: '1234'
       }
     }
 
@@ -44,7 +44,7 @@ describe('SignUp controller', () => {
       body: {
         email: 'any_email@mail.com',
         name: 'any_name',
-        confirmationPassword: '1234'
+        passwordConfirmation: '1234'
       }
     }
 
@@ -52,5 +52,22 @@ describe('SignUp controller', () => {
 
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('password'))
+  })
+
+  it('should return 400 if no name is provided', () => {
+    const sut = new SignUpController()
+
+    const httpRequest = {
+      body: {
+        email: 'any_email@mail.com',
+        name: 'any_name',
+        password: '1234'
+      }
+    }
+
+    const httpResponse = sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirmation'))
   })
 })
