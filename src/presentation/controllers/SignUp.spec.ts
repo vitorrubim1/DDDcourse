@@ -21,7 +21,6 @@ describe('SignUp controller', () => {
   })
 
   it('should return 400 if no email is provided', () => {
-    // Instância do meu controller
     const sut = new SignUpController()
 
     const httpRequest = {
@@ -36,5 +35,22 @@ describe('SignUp controller', () => {
 
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('email'))
+  })
+
+  it('should return 400 if no name is provided', () => {
+    const sut = new SignUpController()
+
+    const httpRequest = {
+      body: {
+        email: 'any_email@mail.com',
+        name: 'any_name',
+        confirmationPassword: '1234'
+      }
+    }
+
+    const httpResponse = sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new MissingParamError('password'))
   })
 })
