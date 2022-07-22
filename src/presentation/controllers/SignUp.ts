@@ -4,10 +4,10 @@ import { badRequest } from '../helpers/http-helper'
 
 export class SignUpController {
   handle (httpRequest: HttpRequest): HttpResponse {
-    // Verificando se os campos obrigatórios estão sendo informado
-    const requiredFields = ['name', 'email', 'password']
+    const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
     for (const field of requiredFields) {
+      // Verificando se os campos obrigatórios estão sendo informado
       if (!httpRequest.body[field]) {
         return badRequest(new MissingParamError(field))
       }
